@@ -1,0 +1,41 @@
+{
+  "name": "spacewalk-client",
+  "description": "Installs/Configures a Spacewalk client",
+  "long_description": "spacewalk-client Cookbook\n=========================\nThis cookbook installs and registers a node as a Spacewalk client.\n\nRequirements\n------------\n- Ubuntu 12.04, 14.04\n- CentOS/RHEL 5,6,7\n\nAttributes\n----------\n```\ndefault['spacewalk']['pkg_source_path'] = Chef::Config[:file_cache_path]\ndefault['spacewalk']['rhel']['base_url'] = 'http://yum.spacewalkproject.org/2.2-client/RHEL'\ndefault['spacewalk']['rhel']['repo_version'] = '2.2-1'\ndefault['spacewalk']['reg']['key'] = 'my_activation_key'\ndefault['spacewalk']['reg']['server'] = 'http://spacewalk.example.com'\ndefault['spacewalk']['enable_osad'] = false\ndefault['spacewalk']['enable_rhncfg'] = false\ndefault['spacewalk']['rhncfg']['actions']['run'] = false # systems also need provisioning entitlement\n```\n\nUsage\n-----\n#### spacewalk-client::rhel\nInclude `spacewalk-client::rhel` in your node's `run_list` and set the default['spacewalk']['reg'] attributes.\n\n#### spacewalk-client::ubuntu\n\nInclude `spacewalk-client::ubuntu` in your node's `run_list` and set the default['spacewalk']['reg'] attributes.\n\nMake sure you somehow (cookbook\\_file, remote\\_file..) put the following files in default['spacewalk']['pkg\\_source\\_path']\n- apt-transport-spacewalk-1.0.6-2.all.deb\n- python-ethtool-0.11-2.amd64.deb\n- python-rhn-2.5.55-2.all.deb\n- rhn-client-tools-1.8.26-4.amd64.deb\n- rhnsd-5.0.4-3.amd64.deb\n- rhncfg_5.10.14-1ubuntu1.all.deb\n\n(if you want OSAD)\n- pyjabber_0.5.0-1.4ubuntu3.all.deb\n- osad_5.11.27-1ubuntu1.all.deb\n\nYou can build them yourself like described here\nhttp://www.devops-blog.net/spacewalk/registering-ubuntu-and-debian-servers-with-spacewalk\nand the OSAD packages from here\nhttps://launchpad.net/~mj-casalogic/+archive/ubuntu/spacewalk-ubuntu/+packages\n\nLicense and Authors\n-------------------\nAuthors: Phil Schuler http://devops-blog.net\n",
+  "maintainer": "Phil Schuler",
+  "maintainer_email": "the.cypher@gmail.com",
+  "license": "GNU GPL v2",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.12"
+}

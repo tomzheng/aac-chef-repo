@@ -1,0 +1,17 @@
+{
+   "name": "SGVLGSAACbarpem.bcc.ap.abn",
+   "description": "SGVLGSAACbarpem.bcc.ap.abn role.",
+   "json_class": "Chef::Role",
+   "default_attributes": {
+    "aac_environment": PROD",
+    "location": SG"
+   },
+   "override_attributes": {
+   },
+   "chef_type": "role",
+   "run_list": [
+   ],
+   "env_run_lists": {
+   }
+}
+

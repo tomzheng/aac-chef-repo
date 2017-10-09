@@ -1,0 +1,42 @@
+[sssd]
+config_file_version = 2
+domains = bcc.ap.abn
+services = nss, pam
+
+[nss]
+filter_users = root
+filter_groups = root
+default_shell = /bin/bash
+allowed_shells = /bin/bash, /bin/tcsh, /bin/zsh
+
+[pam]
+
+[domain/bcc.ap.abn]
+cache_credentials = true
+enumerate = true
+
+id_provider = ad
+auth_provider = ad
+access_provider = ad
+
+ad_access_filter = (|(memberOf=CN=appautomation,OU=Linux Servers,OU=Resource Groups,dc=bcc,dc=ap,dc=abn)(memberOf=CN=svlx-fcsprod,OU=Linux Servers,OU=Resource Groups,dc=bcc,dc=ap,dc=abn)(memberOf=CN=APAC_IT_Infrastructure_Admins,OU=Role Based Access Groups,OU=Resource Groups,dc=bcc,dc=ap,dc=abn)(memberOf=CN=Service_Desk_Admins,OU=Role Based Access Groups,OU=Resource Groups,dc=bcc,dc=ap,dc=abn))
+
+ldap_scheme = rfc2307bis
+
+# Uncomment if you want to use POSIX UIDs and GIDs set on the AD side
+# ldap_id_mapping = False
+
+# Comment out if you prefer to user shortnames.
+# use_fully_qualified_names = True
+
+# Comment out if the users have the home dir set on the AD side
+fallback_homedir = /home/BCC/%u
+
+[sudo]
+
+[autofs]
+
+[ssh]
+
+[pac]
+

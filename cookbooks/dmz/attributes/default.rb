@@ -1,0 +1,41 @@
+case node[:hostname][0..1].upcase
+   when "SG"
+     node.default['str_spaceproxy'] = '10.250.88.15 sgvlgsaacsppxy sgvlgsaacsppxy.bcc.ap.abn sg-swproxy sg-swproxy.bcc.ap.abn'
+	 node.default['str_smtp'] = '192.168.35.174 smtp.sg.abnamroclearing.com sgvcapaacirone'
+	 node.default['spacewalkproxy'] = 'sgvlgsaacsppxy.bcc.ap.abn' 
+	 node.default['spacewalkproxy_ip'] = '10.250.88.15' 
+	 node.default['country'] = 'SG'
+	 node.default['nagios_local_ip'] = '10.250.84.27'
+	 node.default['main_cf_relayhost'] = 'smtp.sg.abnamroclearing.com'
+	 node.default['main_cf_mydomain'] = 'sg.abnamroclearing.com'
+   when "AU"
+     node.default['str_spaceproxy'] = '10.250.24.15 auvlbsaacsppxy auvlbsaacsppxy.bcc.ap.abn au-swproxy au-swproxy.bcc.ap.abn'
+	 node.default['str_smtp'] = '192.168.35.56 smtp.au.abnamroclearing.com AUVCBSAACirone'
+	 node.default['spacewalkproxy'] = 'auvlbsaacsppxy.bcc.ap.abn'
+	 node.default['spacewalkproxy_ip'] = '10.250.24.15' 
+	 node.default['country'] = 'AU'
+	 node.default['nagios_local_ip'] = '10.250.20.11'
+	 node.default['main_cf_relayhost'] = 'smtp.au.abnamroclearing.com'
+	 node.default['main_cf_mydomain'] = 'au.abnamroclearing.com'
+   when "HK"
+     node.default['str_spaceproxy'] = '10.250.56.15 hkvlseaacsppxy hkvlseaacsppxy.bcc.ap.abn hk-swproxy hk-swproxy.bcc.ap.abn'
+	 node.default['str_smtp'] = '192.168.35.109 smtp.hk.abnamroclearing.com hkvchcaacirone'
+	 node.default['spacewalkproxy'] = 'hkvlseaacsppxy.bcc.ap.abn'
+	 node.default['country'] = 'HK'
+	 node.default['spacewalkproxy_ip'] = '10.250.56.15' 
+	 node.default['nagios_local_ip'] = '10.250.52.27'
+	 node.default['main_cf_relayhost'] = 'smtp.hk.abnamroclearing.com'
+	 node.default['main_cf_mydomain'] = 'hk.abnamroclearing.com'
+   when "JP"
+     node.default['str_spaceproxy'] = '10.250.120.15 jpvleqaacsppxy jpvleqaacsppxy.bcc.ap.abn jp-swproxy jp-swproxy.bcc.ap.abn'
+	 node.default['str_smtp'] = '192.168.35.248 smtp.jp.abnamroclearing.com JPVCTYAACirone'
+	 node.default['spacewalkproxy'] = 'jpvleqaacsppxy.bcc.ap.abn'
+	 node.default['country'] = 'JP'
+	 node.default['spacewalkproxy_ip'] = '10.250.120.15' 
+	 node.default['nagios_local_ip'] = '10.250.116.27'
+	 node.default['main_cf_relayhost'] = 'smtp.jp.abnamroclearing.com'
+	 node.default['main_cf_mydomain'] = 'jp.abnamroclearing.com'
+end
+
+node.default['str_chefserver'] = '10.250.64.83 sgvlapaacchefs sgvlapaacchefs.bcc.ap.abn'
+node.default['nag-umb_ip'] = '10.250.84.17'

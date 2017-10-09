@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  http_proxy: http://proxy.sg.fap:3128
+  https_proxy: http://proxy.sg.fap:3128
+  no_proxy: localhost,127.0.0.1
+
+platforms:
+  - name: centos-7.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[edb::default]
+    attributes: {"edb": 
+                   {"version": "9.6",
+                    "package": "edb-as96",
+                    "bin": "/usr/edb/as9.6/bin",
+                    "sysconfig": "/etc/sysconfig/edb/as9.6/edb-as-9.6.sysconfig",
+                    "s-9.6sysconfig_file": "edb-as-9.6.sysconfig",
+                    "service": "edb-as-9."      
+                   }}
+    

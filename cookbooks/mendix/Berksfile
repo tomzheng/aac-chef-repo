@@ -1,0 +1,4 @@
+source 'https://supermarket.chef.io'
+
+metadata
+cookbook 'aac_linux_baseline', path: '../aac_linux_baseline'

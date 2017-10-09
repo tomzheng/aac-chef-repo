@@ -1,0 +1,320 @@
+#[BART]	# BART specifies the global section. settings in this section are
+			# valid for all servers. (Note that global section must be named
+			# BART).
+#bart-host = # Required. (value in "USER@HOST" format required). IP address of
+			 # backup server where utility resides.
+#backup_path =	# Required. defines the path where all of the backups will be
+				# stored.
+#pg_basebackup_path =	# Required. defines the pg_basebackup path.
+#xlog-method = #Optional. Valid options are [fetch | stream]. defaults to fetch.
+#retention_policy= # Optional. applied to all servers.
+                   # valid options are [BACKUPS | DAYS | WEEKS | MONTHS]
+#logfile = # Optional. Path to log file.
+#wal_compression= [enabled | disabled]
+                  # Optional. defaults to disabled. (gzip compression, gzip must
+                  # be in path).
+
+#[ServerName]	# server name.
+#backup-name = # Optional. Specifies friendly name for the backups. This name
+               # can contain %variables that will be replaced with appropriate
+               # values at the time of backup. Following %variables are
+               # supported. (%% will be replaced with %).
+               # %year - 4 digit year
+               # %month - 2 digit month
+               # %day - 2 digit day of month
+               # %hour - 2 digit hour
+               # %minute - 2 digit minutes
+               # %second - 2 digit seconds.
+
+#host =		# Required. IP address of the server being configured for backup.
+#user =		# Required. database user name.
+#port =		# Optional. default 5444.
+#archive_command = # Optional. i.e 'scp %p %h:%a/%f' command to be used for
+                   # archiving. This supports two format specifiers %h and %a
+                   # %h will be replaced with bart-host by the utility.
+                   # %a will be replaced with archive path by the utility.
+                   # other identifiers are left alone to be utilized by server
+                   # such as %f and %p
+
+#remote-host =	# Optional. (value in "USER@HOST" format required). IP address
+				# of the server on which given backup will be restored.
+#tablespace_path =	[OID=PATH];[OID=PATH]...
+					# Optional. path to directory where table spaces will be
+					# restored. (if the remote-host is provided then this path
+					# should be valid on that server.)
+					# required format is: tablespace_path=OID=PATH;OID=PATH;...
+#retention_policy=  # Optional. applied to specific server.
+                    # valid options are [BACKUPS | DAYS | WEEKS | MONTHS]
+#xlog-method = #Optional. Valid options are [fetch | stream]. defaults to global
+               #set policy.
+#wal_compression= [enabled | disabled]
+                  # Optional. defaults to disabled. (gzip compression, gzip must
+                  # be in path).
+#description = # Optional. description of the server.
+
+[BART]
+bart-host= bart@10.250.64.38
+backup_path = /opt/bart/backup
+pg_basebackup_path = /opt/PostgresPlus/9.4AS/bin/pg_basebackup
+xlog-method = fetch
+retention_policy = 7 DAYS
+wal_compression = enabled
+logfile = /tmp/BART-Log/bart.log
+
+##### Default Entry ####
+#[PG]
+#host = 127.0.0.1
+#port = 5432
+#user = postgres
+#description = "Postgres server"
+#### Default Entry Ends Here ####
+
+[UAT-AUVLBSAACinftls]
+host = 10.250.0.48
+port = 5444
+user = bartbackup
+backup-name = UAT-AUVLBSAACinftls_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.0.48
+retention_policy = 2 BACKUPS
+description = "PPAS94-UAT-AUVLBSAACinftls"
+
+[UAT-AUVLBSAACord2]
+host = 10.250.2.77
+port = 5432
+user = bartbackup
+backup-name = UAT-AUVLBSAACord2_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.2.77
+retention_policy = 2 BACKUPS
+description = "PPAS94-UAT-AUVLBSAACord2"
+
+[UAT-SGVLGSAACgwiki2]
+host = 10.250.85.142
+port = 5444
+user = bartbackup
+backup-name = UAT-SGVLGSAACgwiki2_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.85.142
+retention_policy = 2 BACKUPS
+description = "PPAS94-UAT-SGVLGSAACgwiki2"
+
+[UAT-jpvleqaaccafuat]
+host = 10.250.98.43
+port = 5432
+user = bartbackup
+backup-name = UAT-jpvleqaaccafuat_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.98.43
+retention_policy = 2 BACKUPS
+description = "PPAS94-UAT-jpvleqaaccafuat"
+
+[UAT-jpvlataacord2]
+host = 10.250.96.15
+port = 5432
+user = bartbackup
+backup-name = UAT-jpvlataacord2_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.96.15
+retention_policy = 2 BACKUPS
+description = "PPAS94-UAT-jpvlataacord2"
+
+[UAT-SGVLGSAACechidt]
+host = 10.253.80.26
+port = 5444
+user = bartbackup
+backup-name = UAT-SGVLGSAACechidt_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.253.80.26
+retention_policy = 2 BACKUPS
+description = "PPAS94-UAT-SGVLGSAACechidt"
+
+[UAT-AUVLBSAACgsd]
+host = 10.250.2.14
+port = 5432
+user = bartbackup
+backup-name = UAT-AUVLBSAACgsd_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@10.250.2.14
+retention_policy = 2 BACKUPS
+description = "PPAS94-UAT-AUVLBSAACgsd"
+
+[PROD-AUVLBSAACorder]
+host = 10.250.2.11
+port = 5432
+user = bartbackup
+backup-name = PROD-AUVLBSAACorder_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.2.11
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-AUVLBSAACorder"
+
+[PROD-HKVLHCAACorder]
+host = 10.250.32.14
+port = 5432
+user = bartbackup
+backup-name = PROD-HKVLHCAACorder_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.32.14
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-HKVLHCAACorder"
+
+[PROD-SGVLGSAACorder]
+host = 10.250.66.23
+port = 5432
+user = bartbackup
+backup-name = PROD-SGVLGSAACorder_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.66.23
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-SGVLGSAACorder"
+
+[PROD-JPVLATAACorder]
+host = 10.250.96.14
+port = 5432
+user = bartbackup
+backup-name = PROD-JPVLATAACorder_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.96.14
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-JPVLATAACorder"
+
+[PROD-JPVLATAACcafdb.jp.fap]
+host = 10.250.98.41
+port = 5432
+user = bartbackup
+backup-name = PROD-JPVLATAACcafdb.jp.fap_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.98.41
+retention_policy = 14 DAYS
+description = "PPAS94-PROD-JPVLATAACcafdb.jp.fap"
+
+[PROD-AUVLBSAACgpd]
+host = 10.250.2.41
+port = 5432
+user = bartbackup
+backup-name = PROD-AUVLBSAACgpd_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@10.250.2.41
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-AUVLBSAACgpd"
+
+[PROD-AUVLAPAACdmnw]
+host = 10.250.2.42
+port = 5432
+user = bartbackup
+backup-name = PROD-AUVLAPAACdmnw_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@10.250.2.42
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-AUVLAPAACdmnw"
+
+[PROD-AUVLBSAACortrmp]
+host = 10.250.2.25
+port = 5432
+user = bartbackup
+backup-name = PROD-AUVLBSAACortrmp_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.2.25
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-AUVLBSAACortrmp"
+
+[PROD-SGVLGSAACcprf]
+host = 10.250.64.37
+port = 5444
+user = bartbackup
+backup-name = PROD-SGVLGSAACcprf_%year%month%dayT_%hour%minute%second
+remote-host = postgres@10.250.64.37
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-SGVLGSAACcprf"
+
+[PROD-SGVLGSAACcrowd1]
+host = 10.250.85.145
+port = 5444
+user = bartbackup
+backup-name = PROD-SGVLGSAACcrowd1_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@10.250.85.145
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-SGVLGSAACcrowd1"
+
+[PROD-SGVLAPAACgpd]
+host = 10.250.71.15
+port = 5432
+user = bartbackup
+backup-name = PROD-SGVLAPAACgpd_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@10.250.71.15
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-SGVLAPAACgpd"
+
+[PROD-sgvlapaacetfprd]
+host = 10.250.64.87
+port = 5444
+user = bartbackup
+backup-name = PROD-sgvlapaacetfprd_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@sgvlapaacetfprd.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-sgvlapaacetfprd"
+
+[PROD-SGVLGSAACjcr]
+host = SGVLGSAACjcr.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = PROD-SGVLGSAACjcr_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@SGVLGSAACjcr.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-SGVLGSAACjcr"
+
+[UAT-SGVLPLAACslmbsi]
+host = SGVLPLAACslmbsi.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = UAT-SGVLPLAACslmbsi_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@SGVLPLAACslmbsi.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-UAT-SGVLPLAACslmbsi"
+
+
+[PROD-SGVLAPAACdmnw]
+host = SGVLAPAACdmnw.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = PROD-SGVLAPAACdmnw_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@SGVLAPAACdmnw.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-SGVLAPAACdmnw"
+
+[UAT-sgvlapaacslbmu]
+host = sgvlapaacslbmu.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = UAT-sgvlapaacslbmu_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@sgvlapaacslbmu.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-UAT-sgvlapaacslbmu
+
+
+[PROD-sgvlapaacslbm]
+host = sgvlapaacslbm.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = PROD-sgvlapaacslbm_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@sgvlapaacslbm.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-sgvlapaacslbm
+[PROD-sgvlapaacetfcon]
+host = sgvlapaacetfcon.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = PROD-sgvlapaacetfcon_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@sgvlapaacetfcon.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-PROD-sgvlapaacetfcon
+[UAT-sgvlapaacetfsi2]
+host = sgvlapaacetfsi2.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = UAT-sgvlapaacetfsi2_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@sgvlapaacetfsi2.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-UAT-sgvlapaacetfsi2
+[UAT-sgvlapaacetfuat]
+host = sgvlapaacetfuat.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = UAT-sgvlapaacetfuat_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@sgvlapaacetfuat.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-UAT-sgvlapaacetfuat
+[UAT-sgvleqaacgesjra]
+host = sgvleqaacgesjra.bcc.ap.abn
+port = 5444
+user = bartbackup
+backup-name = UAT-sgvleqaacgesjra_%year%month%dayT_%hour%minute%second
+remote-host = enterprisedb@sgvleqaacgesjra.bcc.ap.abn
+retention_policy = 7 DAYS
+description = "PPAS94-UAT-sgvleqaacgesjra

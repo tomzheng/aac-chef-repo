@@ -1,0 +1,19 @@
+{
+  "name": "SGVLGSAACbarpem.bcc.ap.abn",
+  "chef_environment": "_default",
+  "run_list": [
+  "recipe[bartpem]",
+  "role[chef_managed_servers]"
+]
+,
+  "normal": {
+    "tags": [
+
+    ]
+  },
+  "default": {
+    "aac_environment": "PROD",
+    "location": "SG"
+ }
+}
+

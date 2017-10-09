@@ -1,0 +1,319 @@
+#---------------------------------------------------------------------
+# Example configuration for a possible web application.  See the
+# full configuration options online.
+#
+#   http://haproxy.1wt.eu/download/1.4/doc/configuration.txt
+#
+#---------------------------------------------------------------------
+
+#---------------------------------------------------------------------
+# Global settings
+#---------------------------------------------------------------------
+global
+    # to have these messages end up in /var/log/haproxy.log you will
+    # need to:
+    #
+    # 1) configure syslog to accept network log events.  This is done
+    #    by adding the '-r' option to the SYSLOGD_OPTIONS in
+    #    /etc/sysconfig/syslog
+    #
+    # 2) configure local2 events to go to the /var/log/haproxy.log
+    #   file. A line like the following can be added to
+    #   /etc/sysconfig/syslog
+    #
+    # local2.*                       /var/log/haproxy.log
+    #
+    log         127.0.0.1 local2
+
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+
+    # turn on stats unix socket
+    stats socket /var/lib/haproxy/stats
+    tune.ssl.default-dh-param 2048
+    ssl-default-bind-options no-sslv3 no-tls-tickets
+    ssl-default-bind-ciphers EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
+
+
+#---------------------------------------------------------------------
+# common defaults that all the 'listen' and 'backend' sections will
+# use if not designated in their block
+#---------------------------------------------------------------------
+defaults
+    mode                    tcp
+    log                     global
+    option                  logasap
+    option                  tcplog
+    option                  dontlognull
+    retries                 3
+    timeout connect         1s
+    timeout queue           5s
+    timeout client          45s
+    timeout server          45s
+    maxconn                 3000
+
+#---------------------------------------------------------------------
+# main frontend which proxys to the backends
+#---------------------------------------------------------------------
+frontend main
+    http-response set-header Strict-Transport-Security max-age=31536000;\ includeSubdomains;\ preload
+    http-response set-header X-Frame-Options DENY
+    http-response set-header X-Content-Type-Options nosniff
+
+    bind :443 ssl crt /etc/haproxy/keys/etf_uat_server.pem verify required ca-file /etc/haproxy/keys/ca.cer
+
+    mode tcp
+    option tcplog
+    # an alternative could be to use ssl_c_s_dn to get the subject dn
+    acl cert_client1 ssl_c_serial -m bin 0A58
+    acl cert_client2 ssl_c_serial -m bin 0A59
+
+    acl cert_etfuat1 ssl_c_serial -m bin 0A58
+    acl cert_etfuat_optiver ssl_c_serial -m bin 0A5A
+    acl cert_etfuat_flow ssl_c_serial -m bin 0A5B
+    acl cert_etfuat_eclipse ssl_c_serial -m bin 0A5C
+    acl cert_etfuat_bluefin ssl_c_serial -m bin 0A5D
+    acl cert_etfuat_drw ssl_c_serial -m bin 0A5E
+    acl cert_etfuat_vivcourt ssl_c_serial -m bin 0A57
+    acl cert_etfuat_imc ssl_c_serial -m bin 0A60
+    acl cert_etfuat_exponential ssl_c_serial -m bin 0A63
+    acl cert_etfuat_janestreet ssl_c_serial -m bin 0A64
+    acl cert_etfuat_fenixone ssl_c_serial -m bin 0A65
+    acl cert_etfuat_virtu ssl_c_serial -m bin 0A66
+    acl cert_etfuat_sig ssl_c_serial -m bin 0A85
+    acl cert_etfuat_optiverjp ssl_c_serial -m bin 0A87
+
+    acl cert_etfcon_testclnt1 ssl_c_serial -m bin 0A8A
+    acl cert_etfcon_ausydimcc1 ssl_c_serial -m bin 0A8E
+    acl cert_etfcon_ausydoptc1 ssl_c_serial -m bin 0A8B
+    acl cert_etfcon_ausydoptc2 ssl_c_serial -m bin 0A8C
+    acl cert_etfcon_ausydvcc1 ssl_c_serial -m bin 0A8D
+
+
+    use_backend testclient1 if cert_client1
+    use_backend testclient2 if cert_client2
+
+    use_backend etfuat1 if cert_etfuat1
+    use_backend etfuat_optiver if cert_etfuat_optiver
+    use_backend etfuat_flow if cert_etfuat_flow
+    use_backend etfuat_eclipse if cert_etfuat_eclipse
+    use_backend etfuat_bluefin if cert_etfuat_bluefin
+    use_backend etfuat_drw if cert_etfuat_drw
+    use_backend etfuat_vivcourt if cert_etfuat_vivcourt
+    use_backend etfuat_imc if cert_etfuat_imc
+    use_backend etfuat_exponential if cert_etfuat_exponential
+    use_backend etfuat_janestreet if cert_etfuat_janestreet
+    use_backend etfuat_fenixone if cert_etfuat_fenixone
+    use_backend etfuat_virtu if cert_etfuat_virtu
+    use_backend etfuat_sig if cert_etfuat_sig
+    use_backend etfuat_optiverjp if cert_etfuat_optiverjp
+
+    use_backend etfcon_testclnt1 if cert_etfcon_testclnt1
+    use_backend etfcon_ausydimcc1 if cert_etfcon_ausydimcc1
+    use_backend etfcon_ausydoptc1 if cert_etfcon_ausydoptc1
+    use_backend etfcon_ausydoptc2 if cert_etfcon_ausydoptc2
+    use_backend etfcon_ausydvcc1 if cert_etfcon_ausydvcc1
+
+#frontend setting, edited by haproxy script on sgvlapaacchefs
+
+
+
+
+#---------------------------------------------------------------------
+# static backend for serving up images, stylesheets and such
+#---------------------------------------------------------------------
+backend testclient1
+    mode tcp
+    balance     roundrobin
+    server      testclient1 localhost:9043
+
+#---------------------------------------------------------------------
+# round robin balancing between the various backends
+#---------------------------------------------------------------------
+backend testclient2
+    mode tcp
+    balance     roundrobin
+    server  testclient2 localhost:9044
+
+
+
+#---------------------------------------------------------------------
+# etfuat1
+#---------------------------------------------------------------------
+
+backend etfuat1
+    mode tcp
+    balance     roundrobin
+    server  etfuat1 localhost:9045
+
+#---------------------------------------------------------------------
+# etfuat_optiver
+#---------------------------------------------------------------------
+
+backend etfuat_optiver
+    mode tcp
+    balance     roundrobin
+    server  etfuat_optiver localhost:9046
+
+#---------------------------------------------------------------------
+# etfuat_flow
+#---------------------------------------------------------------------
+
+backend etfuat_flow
+    mode tcp
+    balance     roundrobin
+    server  etfuat_flow localhost:9051
+
+#---------------------------------------------------------------------
+# etfuat_eclipse
+#---------------------------------------------------------------------
+
+backend etfuat_eclipse
+    mode tcp
+    balance     roundrobin
+    server  etfuat_eclipse localhost:9048
+
+#---------------------------------------------------------------------
+# etfuat_bluefin
+#---------------------------------------------------------------------
+
+backend etfuat_bluefin
+    mode tcp
+    balance     roundrobin
+    server  etfuat_bluefin localhost:9049
+
+#---------------------------------------------------------------------
+# etfuat_drw
+#---------------------------------------------------------------------
+
+backend etfuat_drw
+    mode tcp
+    balance     roundrobin
+    server  etfuat_drw localhost:9050
+
+#---------------------------------------------------------------------
+# etfuat_vivcourt
+#---------------------------------------------------------------------
+
+backend etfuat_vivcourt
+    mode tcp
+    balance     roundrobin
+    server  etfuat_vivcourt localhost:9047
+
+
+#---------------------------------------------------------------------
+# etfuat_imc
+#---------------------------------------------------------------------
+
+backend etfuat_imc
+    mode tcp
+    balance     roundrobin
+    server  etfuat_imc localhost:9051
+
+#---------------------------------------------------------------------
+# etfuat_exponential
+#---------------------------------------------------------------------
+
+backend etfuat_exponential
+    mode tcp
+    balance     roundrobin
+    server  etfuat_exponential localhost:9052
+
+#---------------------------------------------------------------------
+# etfuat_janestreet
+#---------------------------------------------------------------------
+
+backend etfuat_janestreet
+    mode tcp
+    balance     roundrobin
+    server  etfuat_janestreet localhost:9053
+
+#---------------------------------------------------------------------
+# etfuat_fenixone
+#---------------------------------------------------------------------
+
+backend etfuat_fenixone
+    mode tcp
+    balance     roundrobin
+    server  etfuat_fenixone localhost:9054
+
+#---------------------------------------------------------------------
+# etfuat_virtu
+#---------------------------------------------------------------------
+
+backend etfuat_virtu
+    mode tcp
+    balance     roundrobin
+    server  etfuat_virtu localhost:9055
+
+#---------------------------------------------------------------------
+# etfuat_sig
+#---------------------------------------------------------------------
+
+backend etfuat_sig
+    mode tcp
+    balance     roundrobin
+    server  etfuat_sig localhost:9035
+
+
+
+#---------------------------------------------------------------------
+# etfuat_optiverjp
+#---------------------------------------------------------------------
+
+backend etfuat_optiverjp
+    mode tcp
+    balance     roundrobin
+    server  etfuat_optiverjp localhost:9048
+
+
+#---------------------------------------------------------------------
+# etfcon_testclnt1
+#---------------------------------------------------------------------
+
+backend etfcon_testclnt1
+    mode tcp
+    balance     roundrobin
+    server  etfcon_testclnt1 localhost:10043
+
+#---------------------------------------------------------------------
+# etfcon_ausydimcc1
+#---------------------------------------------------------------------
+
+backend etfcon_ausydimcc1
+    mode tcp
+    balance     roundrobin
+    server  etfcon_ausydimcc1 localhost:10046
+
+#---------------------------------------------------------------------
+# etfcon_ausydoptc1
+#---------------------------------------------------------------------
+
+backend etfcon_ausydoptc1
+    mode tcp
+    balance     roundrobin
+    server  etfcon_ausydoptc1 localhost:10047
+
+#---------------------------------------------------------------------
+# etfcon_ausydoptc2
+#---------------------------------------------------------------------
+
+backend etfcon_ausydoptc2
+    mode tcp
+    balance     roundrobin
+    server  etfcon_ausydoptc2 localhost:10051
+
+
+#---------------------------------------------------------------------
+# etfcon_ausydvcc1
+#---------------------------------------------------------------------
+
+backend etfcon_ausydvcc1
+    mode tcp
+    balance     roundrobin
+    server  etfcon_ausydvcc1 localhost:10048
+

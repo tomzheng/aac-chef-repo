@@ -1,0 +1,10 @@
+[global]
+   security = ads
+   realm = <%= @domain %>
+   workgroup = BCC
+   log file = /var/log/samba/%m.log
+   kerberos method = secrets and keytab
+   client signing = yes
+   client use spnego = yes
+   client ipc signing = auto
+

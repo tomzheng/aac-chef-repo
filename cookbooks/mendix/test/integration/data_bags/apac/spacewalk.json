@@ -1,0 +1,10 @@
+{
+  "id": "spacewalk",
+  "spacewalk_url": "https://spacewalk.bcc.ap.abn",
+  "centos6_spacewalkrepo": "http://yum.spacewalkproject.org/2.4-client/RHEL/6/x86_64/spacewalk-client-repo-2.4-3.el6.noarch.rpm",
+  "centos7_spacewalkrepo": "http://yum.spacewalkproject.org/2.4-client/RHEL/7/x86_64/spacewalk-client-repo-2.4-3.el7.noarch.rpm",
+  "centos6_epelrepo": "http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+  "centos7_epelrepo": "http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+}
+
+

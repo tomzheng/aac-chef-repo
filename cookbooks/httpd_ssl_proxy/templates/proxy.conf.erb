@@ -1,0 +1,66 @@
+<VirtualHost *:80>
+        ServerAdmin it@au.abnamroclearing.com
+        # DocumentRoot /usr/share/ipplan
+        ServerName <%= @hostname %>.bcc.ap.abn
+        ServerAlias <%= @hostname %>
+        ErrorLog logs/<%= @hostname %>-error_log
+        CustomLog logs/<%= @hostname %>-access_log common
+
+
+        ## Change HTTP requests to HTTPS
+        RewriteEngine On
+        RewriteCond %{HTTPS} off
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+        # Redirect port 80 to 8080. 8080 is still the Confluence port,
+        # for old wiki requests links floating around
+        # Also redirect /ipplan to port 81 for ipplan.
+
+
+        ProxyRequests Off
+        ProxyPreserveHost On
+
+        <Directory proxy:*>
+        Order deny,allow
+        Deny from all
+        Allow from all
+        </Directory>
+</VirtualHost>
+
+NameVirtualHost *:443
+<VirtualHost *:443>
+        SSLEngine on
+        SSLProxyEngine on
+        SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+        SSLProtocol all -SSLv2
+#        SSLCACertificateFile    /etc/httpd/certs/ABN_CA_Cert.cer
+        SSLCertificateFile      /etc/httpd/certs/<%= @hostname %>.cer
+        SSLCertificateKeyFile   /etc/httpd/certs/<%= @hostname %>.pem
+        SSLCertificateChainFile /etc/httpd/certs/<%= @hostname %>.p7b
+#   SSLCertificateFile /etc/pki/tls/certs/ca.crt
+#   SSLCertificateKeyFile /etc/pki/tls/private/ca.key
+
+
+        ServerName              <%= @hostname %>.bcc.ap.abn
+        ServerAdmin             it@au.abnamroclearing.com
+        DocumentRoot            /var/www/html
+
+        CustomLog               /var/log/httpd/<%= @hostname %>-access.log combined
+        ErrorLog                /var/log/httpd/<%= @hostname %>-error.log
+
+        <proxy *>
+                Order deny,allow
+                Allow from all
+        </proxy>
+
+        ProxyRequests off
+        ProxyPreserveHost on
+
+   ProxyPass /  http://<%= @hostname %>:8080/
+   ProxyPassReverse / http://<%= @hostname %>:8080/
+
+        <location />
+                Order allow,deny
+                Allow from all
+        </location>
+</VirtualHost>
+

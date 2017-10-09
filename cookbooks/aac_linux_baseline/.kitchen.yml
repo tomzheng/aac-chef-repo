@@ -1,0 +1,28 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  http_proxy: http://proxy.sg.fap:3128
+  https_proxy: http://proxy.sg.fap:3128
+  no_proxy: localhost,127.0.0.1
+
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7.2
+
+suites:
+  - name: default
+    driver:
+      vm_hostname: tom-vagrant.bcc.ap.abn    
+    data_bags_path: "test/integration/data_bags"
+    run_list:
+      - recipe[aac_linux_baseline::default]
+    verifier:
+      inspec_tests:
+        - test/recipes
+    attributes:

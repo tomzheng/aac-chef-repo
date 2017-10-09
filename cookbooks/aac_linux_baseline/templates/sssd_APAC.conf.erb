@@ -1,0 +1,29 @@
+[sssd]
+config_file_version = 2
+domains = apac.dma.aac
+services = nss, pam
+
+[nss]
+filter_users = root
+filter_groups = root
+default_shell = /bin/bash
+
+[pam]
+
+[domain/apac.dma.aac]
+id_provider = ad
+auth_provider = ad
+access_provider = ad
+ldap_scheme = rfc2307bis
+fallback_homedir = /home/%u
+
+ad_access_filter = (|(memberOf=CN=APAC_GES_IT_ADMINS,OU=Security Groups,dc=apac,dc=dma,dc=aac)(memberOf=CN=GES_IT_NORAM,OU=Security Groups,dc=apac,dc=dma,dc=aac)(memberOf=CN=GES_IT_UK,OU=Security Groups,dc=apac,dc=dma,dc=aac))
+
+[sudo]
+
+[autofs]
+
+[ssh]
+
+[pac]
+

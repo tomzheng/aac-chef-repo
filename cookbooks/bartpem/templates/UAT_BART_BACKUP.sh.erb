@@ -1,0 +1,177 @@
+#!/bin/bash
+
+#[PROD-JPVLATAACcafdb.jp.fap] only backup PROD-JPVLATAACcafdb.jp.fap on weekend until get new release BART to fix the backup compression issue
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s prod-jpvlataaccafdb.jp.fap -z
+if [ ! $? -ne 0 ]
+then
+   echo "BART backup completed successfully for server 'PROD-JPVLATAACcafdb.jp.fap'"
+   #echo "Backup completed successfully for server 'PROD-JPVLATAACcafdb.jp.fap'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+
+else
+    echo "BART backup failed for server 'PROD-JPVLATAACcafdb.jp.fap'"
+    echo "Backup failed for server 'PROD-JPVLATAACcafdb.jp.fap'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+
+
+#[UAT-AUVLBSAACinftls]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s uat-auvlbsaacinftls -z
+if [ ! $? -ne 0 ]
+then
+   echo "BART backup completed successfully for server 'UAT-AUVLBSAACinftls'"
+   #echo "Backup completed successfully for server 'UAT-AUVLBSAACinftls'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+
+else
+    echo "BART backup failed for server 'UAT-AUVLBSAACinftls'"
+    echo "Backup failed for server 'UAT-AUVLBSAACinftls'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+
+#[UAT-AUVLBSAACord2]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s uat-auvlbsaacord2 -z
+if [ ! $? -ne 0 ]
+then
+   echo "BART backup completed successfully for server 'UAT-AUVLBSAACord2'"
+   #echo "Backup completed successfully for server 'UAT-AUVLBSAACord2'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+
+else
+    echo "BART backup failed for server 'UAT-AUVLBSAACord2'"
+    echo "Backup failed for server 'UAT-AUVLBSAACord2'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+
+#[UAT-SGVLGSAACgwiki2]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s uat-sgvlgsaacgwiki2 -z
+if [ ! $? -ne 0 ]
+then
+   echo "BART backup completed successfully for server 'UAT-SGVLGSAACgwiki2'"
+   #echo "Backup completed successfully for server 'UAT-SGVLGSAACgwiki2'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+
+else
+    echo "BART backup failed for server 'UAT-SGVLGSAACgwiki2'"
+    echo "Backup failed for server 'UAT-SGVLGSAACgwiki2'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+
+#[UAT-jpvleqaaccafuat]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s uat-jpvleqaaccafuat -z
+if [ ! $? -ne 0 ]
+then
+   echo "BART backup completed successfully for server 'UAT-jpvleqaaccafuat'"
+   #echo "Backup completed successfully for server 'UAT-jpvleqaaccafuat'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+
+else
+    echo "BART backup failed for server 'UAT-jpvleqaaccafuat'"
+    echo "Backup failed for server 'UAT-jpvleqaaccafuat'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+
+#[UAT-jpvlataacord2]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s uat-jpvlataacord2 -z
+if [ ! $? -ne 0 ]
+then
+   echo "BART backup completed successfully for server 'UAT-jpvlataacord2'"
+   #echo "Backup completed successfully for server 'UAT-jpvlataacord2'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+
+else
+    echo "BART backup failed for server 'UAT-jpvlataacord2'"
+    echo "Backup failed for server 'UAT-jpvlataacord2'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+
+#[UAT-SGVLPLAACslmbsi]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s UAT-SGVLPLAACslmbsi -z
+if [ ! $? -ne 0 ]
+then
+echo "BART backup completed successfully for server 'UAT-SGVLPLAACslmbsi'"
+else
+echo "BART backup failed for server 'UAT-SGVLPLAACslmbsi'"
+echo "Backup failed for server 'UAT-SGVLPLAACslmbsi'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+exit 0
+fi
+
+
+#[UAT-sgvlapaacpgu1]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart_edb-as96.cfg --debug backup -s UAT-sgvlapaacpgu1 -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-sgvlapaacpgu1'"
+else
+	echo "BART backup failed for server 'UAT-sgvlapaacpgu1'"
+	echo "Backup failed for server 'UAT-sgvlapaacpgu1'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-sgvlapaacslbmu]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s UAT-sgvlapaacslbmu -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-sgvlapaacslbmu'"
+else
+	echo "BART backup failed for server 'UAT-sgvlapaacslbmu'"
+	echo "Backup failed for server 'UAT-sgvlapaacslbmu'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-SGVLAPAACcstcau]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart_edb-as96.cfg --debug backup -s UAT-SGVLAPAACcstcau -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-SGVLAPAACcstcau'"
+else
+	echo "BART backup failed for server 'UAT-SGVLAPAACcstcau'"
+	echo "Backup failed for server 'UAT-SGVLAPAACcstcau'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-sgvlapaacetfsi2]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s UAT-sgvlapaacetfsi2 -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-sgvlapaacetfsi2'"
+else
+	echo "BART backup failed for server 'UAT-sgvlapaacetfsi2'"
+	echo "Backup failed for server 'UAT-sgvlapaacetfsi2'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-sgvlapaacetfuat]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s UAT-sgvlapaacetfuat -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-sgvlapaacetfuat'"
+else
+	echo "BART backup failed for server 'UAT-sgvlapaacetfuat'"
+	echo "Backup failed for server 'UAT-sgvlapaacetfuat'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-sgvlapaacmavetest]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart_edb-as96.cfg --debug backup -s UAT-sgvlapaacmavetest -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-sgvlapaacmavetest'"
+else
+	echo "BART backup failed for server 'UAT-sgvlapaacmavetest'"
+	echo "Backup failed for server 'UAT-sgvlapaacmavetest'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-sgvleqaacgesjra]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart.cfg --debug backup -s UAT-sgvleqaacgesjra -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-sgvleqaacgesjra'"
+else
+	echo "BART backup failed for server 'UAT-sgvleqaacgesjra'"
+	echo "Backup failed for server 'UAT-sgvleqaacgesjra'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-auvlbsaacjiruat]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart_edb-as96.cfg --debug backup -s UAT-auvlbsaacjiruat -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-auvlbsaacjiruat'"
+else
+	echo "BART backup failed for server 'UAT-auvlbsaacjiruat'"
+	echo "Backup failed for server 'UAT-auvlbsaacjiruat'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-sgvlapaacmave1]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart_edb-as96.cfg --debug backup -s UAT-sgvlapaacmave1 -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-sgvlapaacmave1'"
+else
+	echo "BART backup failed for server 'UAT-sgvlapaacmave1'"
+	echo "Backup failed for server 'UAT-sgvlapaacmave1'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
+#[UAT-sgvlapaacmave2]
+/usr/edb-bart-1.1/bin/bart -c /usr/edb-bart-1.1/etc/bart_edb-as96.cfg --debug backup -s UAT-sgvlapaacmave2 -z
+if [ ! $? -ne 0 ]
+then
+	echo "BART backup completed successfully for server 'UAT-sgvlapaacmave2'"
+else
+	echo "BART backup failed for server 'UAT-sgvlapaacmave2'"
+	echo "Backup failed for server 'UAT-sgvlapaacmave2'"|mailx -v -s "BART Backup Status on `date`" apacinfrastructure@au.abnamroclearing.com
+fi
